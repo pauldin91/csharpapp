@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace CSharpApp.Core.Dtos;
 
 public record TodoRecord(
