@@ -1,3 +1,4 @@
+using CSharpApp.Core;
 using CSharpApp.Core.Config;
 using CSharpApp.Core.Dtos;
 using CSharpApp.Core.Interfaces;
@@ -13,17 +14,17 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddDefaultConfiguration();
+builder.Services.AddHttpClients(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var postSettings = new PostSettings();
-builder.Configuration.Bind(nameof(PostSettings), postSettings);
-var toDoSettings = new ToDoSettings();
-builder.Configuration.Bind(nameof(ToDoSettings), toDoSettings);
 
 var app = builder.Build();
+
+var postSettings = app.Services.GetRequiredService<PostSettings>();
+var toDoSettings = app.Services.GetRequiredService<ToDoSettings>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -85,6 +86,14 @@ app.MapGet($"/{postSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] int 
     .WithName(nameof(IPostService.GetPostById))
     .WithOpenApi();
 
+app.MapPost($"/{postSettings.ItemRootUrl}", async ([FromBody] PostRecord post, IPostService postService) =>
+{
+    return (await postService.AddPost(post) is PostRecord created) ? Results.Created($"/{postSettings.ItemRootUrl}", created) : Results.NotFound();
+})
+    .WithName(nameof(IPostService.AddPost))
+    .WithOpenApi();
+
+
 app.MapDelete($"/{postSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] int id, IPostService postService) =>
 {
     try
@@ -99,11 +108,5 @@ app.MapDelete($"/{postSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] i
     .WithName(nameof(IPostService.DeletePostById))
     .WithOpenApi();
 
-app.MapPost($"/{postSettings.ItemRootUrl}", async ([FromBody] PostRecord post, IPostService postService) =>
-{
-    return (await postService.AddPost(post) is PostRecord created) ? Results.Created($"/{postSettings.ItemRootUrl}", created) : Results.NotFound();
-})
-    .WithName(nameof(IPostService.AddPost))
-    .WithOpenApi();
 
 app.Run();

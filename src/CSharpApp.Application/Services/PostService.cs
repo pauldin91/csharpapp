@@ -12,47 +12,38 @@ namespace CSharpApp.Application.Services
 {
     public class PostService : IPostService
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientWrapper<ToDoSettings> _clientWrapper;
         private readonly ILogger<PostService> _logger;
         private readonly PostSettings _postSettings;
 
-        public PostService(ILogger<PostService> logger,
-            IConfiguration configuration)
+        public PostService(ILogger<PostService> logger, PostSettings postSettings,
+            IHttpClientWrapper<ToDoSettings> clientWrapper)
         {
             _logger = logger;
-            _postSettings = ConfigurationBinder.Get<PostSettings>(configuration.GetRequiredSection(typeof(PostSettings).Name))!;
-            _client = new HttpClient
-            {
-                BaseAddress = new Uri(_postSettings.BaseUrl!)
-            };
+            _postSettings = postSettings;
+            _clientWrapper = clientWrapper;
         }
 
         public async Task<PostRecord?> AddPost(PostRecord post)
         {
-            var response = await _client.PostAsJsonAsync(_postSettings.ItemRootUrl, post);
-
-            return JsonConvert.DeserializeObject<PostRecord>(await response.Content.ReadAsStringAsync());
+            return await _clientWrapper.Post(_postSettings.ItemRootUrl, post);
         }
 
         public async Task<PostRecord?> DeletePostById(int id)
         {
-            var response = await _client.DeleteFromJsonAsync<PostRecord>($"{_postSettings.ItemRootUrl}/{id}");
-
-            return response;
+            return await _clientWrapper.Delete<PostRecord>(_postSettings.ItemRootUrl, id);
         }
 
         public async Task<ReadOnlyCollection<PostRecord>> GetAllPosts()
         {
-            var response = await _client.GetFromJsonAsync<List<PostRecord>>(_postSettings.ItemRootUrl);
+            var response = await _clientWrapper.Get<List<PostRecord>>(_postSettings.ItemRootUrl);
 
             return response!.AsReadOnly();
         }
 
         public async Task<PostRecord?> GetPostById(int id)
         {
-            var response = await _client.GetFromJsonAsync<PostRecord>($"{_postSettings.ItemRootUrl}/{id}");
-
-            return response;
+            return await _clientWrapper.Get<PostRecord>(_postSettings.ItemRootUrl, id);
         }
     }
 }
