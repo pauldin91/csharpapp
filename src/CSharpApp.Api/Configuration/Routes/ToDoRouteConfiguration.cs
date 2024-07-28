@@ -7,7 +7,7 @@ namespace CSharpApp.Api.Configuration.Routes
 {
     public static class ToDoRouteConfiguration
     {
-        public static WebApplication AddToDoItemRoutes(this WebApplication app ) 
+        public static WebApplication AddToDoItemRoutes(this WebApplication app)
         {
             var toDoSettings = app.Services.GetRequiredService<ToDoSettings>();
             app.MapGet($"/{toDoSettings.ItemRootUrl}", async (ITodoService todoService) =>

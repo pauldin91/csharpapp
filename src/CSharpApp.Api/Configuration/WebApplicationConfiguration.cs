@@ -1,5 +1,4 @@
 ﻿using CSharpApp.Api.Configuration.Routes;
-using System.Runtime.CompilerServices;
 
 namespace CSharpApp.Api.Configuration
 {
@@ -13,8 +12,7 @@ namespace CSharpApp.Api.Configuration
             foreach (var routeConfig in routeConfigs)
             {
                 var cls = routeConfig.GetMethods().FirstOrDefault(s => s.Name.EndsWith("Routes"));
-                cls.Invoke(null,new object[] { app });
-               
+                cls.Invoke(null, new object[] { app });
             }
             return app;
         }

@@ -1,12 +1,8 @@
 ﻿using CSharpApp.Core.Config;
 using CSharpApp.Core.Dtos;
 using CSharpApp.Core.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Net;
-using System.Net.Http.Json;
 
 namespace CSharpApp.Application.Services
 {

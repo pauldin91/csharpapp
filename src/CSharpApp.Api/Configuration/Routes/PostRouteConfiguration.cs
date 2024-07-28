@@ -11,7 +11,6 @@ namespace CSharpApp.Api.Configuration.Routes
         {
             var postSettings = app.Services.GetRequiredService<PostSettings>();
 
-
             app.MapGet($"/{postSettings.ItemRootUrl}", async (IPostService postService) =>
             {
                 var todos = await postService.GetAllPosts();
