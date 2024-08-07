@@ -1,10 +1,7 @@
-﻿using CSharpApp.Core.Interfaces;
-
-namespace CSharpApp.Core.Config
+﻿namespace CSharpApp.Core.Config
 {
-    public class ToDoSettings : IClientSettings
+    public class ToDoSettings : ClientSettings
     {
-        public string BaseUrl { get; set; }
-        public string ItemRootUrl { get; set; }
+        public string ItemRootUrl { get; set; } = string.Empty;
     }
 }

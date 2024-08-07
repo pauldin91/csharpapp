@@ -2,9 +2,9 @@
 
 namespace CSharpApp.Core.Config
 {
-    public class PostSettings : IClientSettings
+    public class PostSettings : ClientSettings
     {
-        public string BaseUrl { get; set; }
-        public string ItemRootUrl { get; set; }
+
+        public string ItemRootUrl { get; set; } = string.Empty;
     }
 }

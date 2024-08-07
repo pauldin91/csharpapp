@@ -1,20 +1,22 @@
-﻿using CSharpApp.Core.Interfaces;
+﻿using CSharpApp.Core.Config;
+using CSharpApp.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
 namespace CSharpApp.Core
 {
-    public class HttpClientWrapper<S> : IHttpClientWrapper<S>
-        where S : IClientSettings, new()
+    public class HttpClientWrapper : IHttpClientWrapper
     {
         private readonly HttpClient _httpClient;
-        private readonly S _settings;
 
-        public HttpClientWrapper(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public HttpClientWrapper(IConfiguration configuration)
         {
-            _settings = ConfigurationBinder.Get<S>(configuration.GetRequiredSection(typeof(S).Name))!;
-            _httpClient = httpClientFactory.CreateClient(typeof(S).Name);
+            var _settings = ConfigurationBinder.Get<ClientSettings>(configuration.GetRequiredSection(typeof(ClientSettings).Name))!;
+            _httpClient = new HttpClient
+            {
+               BaseAddress = new Uri(_settings.BaseUrl)
+            };
         }
 
         public async Task<K?> Delete<K>(string itemRootUrl, int id)

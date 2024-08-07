@@ -21,14 +21,7 @@ namespace CSharpApp.Api.Configuration.Routes
 
             app.MapGet($"/{postSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] int id, IPostService postService) =>
             {
-                try
-                {
-                    return await postService.GetPostById(id) is PostRecord post ? Results.Ok(post) : Results.NotFound();
-                }
-                catch (Exception ex)
-                {
-                    return Results.NotFound();
-                }
+                return await postService.GetPostById(id) is PostRecord post ? Results.Ok(post) : Results.NotFound();
             })
                 .WithName(nameof(IPostService.GetPostById))
                 .WithOpenApi();
@@ -42,14 +35,8 @@ namespace CSharpApp.Api.Configuration.Routes
 
             app.MapDelete($"/{postSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] int id, IPostService postService) =>
             {
-                try
-                {
-                    return await postService.DeletePostById(id) is PostRecord deleted ? Results.Ok() : Results.NotFound();
-                }
-                catch (Exception ex)
-                {
-                    return Results.NotFound();
-                }
+                  return await postService.DeletePostById(id) is PostRecord _ ? Results.Ok() : Results.NotFound();
+               
             })
                 .WithName(nameof(IPostService.DeletePostById))
                 .WithOpenApi();

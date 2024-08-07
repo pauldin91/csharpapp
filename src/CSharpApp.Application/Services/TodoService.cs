@@ -8,12 +8,12 @@ namespace CSharpApp.Application.Services;
 
 public class TodoService : ITodoService
 {
-    private readonly IHttpClientWrapper<ToDoSettings> _clientWrapper;
+    private readonly IHttpClientWrapper _clientWrapper;
     private readonly ILogger<TodoService> _logger;
     private readonly ToDoSettings _toDoSettings;
 
     public TodoService(ILogger<TodoService> logger, ToDoSettings toDoSettings,
-        IHttpClientWrapper<ToDoSettings> clientWrapper)
+        IHttpClientWrapper clientWrapper)
     {
         _logger = logger;
         _toDoSettings = toDoSettings;
@@ -22,13 +22,31 @@ public class TodoService : ITodoService
 
     public async Task<ReadOnlyCollection<TodoRecord>> GetAllTodos()
     {
-        var response = await _clientWrapper.Get<List<TodoRecord>>(_toDoSettings.ItemRootUrl);
+        try
+        {
+            var response = await _clientWrapper.Get<List<TodoRecord>>(_toDoSettings.ItemRootUrl);
 
-        return response!.AsReadOnly();
+            return response!.AsReadOnly();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex,"All ToDos could be fetched");
+
+        }
+        return new List<TodoRecord>().AsReadOnly();
     }
 
     public async Task<TodoRecord?> GetTodoById(int id)
     {
-        return await _clientWrapper.Get<TodoRecord>(_toDoSettings.ItemRootUrl, id);
+        try
+        {
+            return await _clientWrapper.Get<TodoRecord>(_toDoSettings.ItemRootUrl, id);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "ToDo with {Id} could be fetched",id);
+
+        }
+        return new TodoRecord(0,0,"",false);
     }
 }

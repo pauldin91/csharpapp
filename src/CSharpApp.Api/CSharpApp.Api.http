@@ -1,11 +1,10 @@
-@CSharpApp.Api_HostAddress = http://localhost:5274
 
-GET {{CSharpApp.Api_HostAddress}}/todos/
+GET {{HostAddress}}/todos/
 Accept: application/json
 
 ###
 
-GET {{CSharpApp.Api_HostAddress}}/todos/1
+GET {{HostAddress}}/todos/4
 Accept: application/json
 
 ###

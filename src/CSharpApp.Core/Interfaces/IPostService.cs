@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CSharpApp.Core.Interfaces
 {
-    public interface IPostService
+    public interface IPostService 
     {
         Task<PostRecord?> AddPost(PostRecord post);
 

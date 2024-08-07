@@ -1,7 +1,6 @@
 ﻿namespace CSharpApp.Core.Interfaces
 {
-    public interface IHttpClientWrapper<S>
-        where S : IClientSettings, new()
+    public interface IHttpClientWrapper
     {
         Task<K?> Delete<K>(string itemRootUrl, int id);
 

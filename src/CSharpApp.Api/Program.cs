@@ -36,4 +36,4 @@ app.UseHttpsRedirection();
 
 app.AddWebApplicationConfiguration();
 
-app.Run();
+await app.RunAsync();

@@ -20,14 +20,7 @@ namespace CSharpApp.Api.Configuration.Routes
 
             app.MapGet($"/{toDoSettings.ItemRootUrl}" + "/{id:int}", async ([FromRoute] int id, ITodoService todoService) =>
             {
-                try
-                {
-                    return (await todoService.GetTodoById(id) is TodoRecord todo) ? Results.Ok(todo) : Results.NotFound();
-                }
-                catch (Exception ex)
-                {
-                    return Results.NotFound();
-                }
+                return (await todoService.GetTodoById(id) is TodoRecord todo) ? Results.Ok(todo) : Results.NotFound();
             })
                 .WithName(nameof(ITodoService.GetTodoById))
                 .WithOpenApi();

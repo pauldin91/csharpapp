@@ -8,11 +8,11 @@ namespace CSharpApp.Api.Configuration
         {
             var namespc = typeof(PostRouteConfiguration).Namespace;
             var types = typeof(PostRouteConfiguration).Assembly.GetTypes();
-            var routeConfigs = types.Where(s => !string.IsNullOrEmpty(s.Namespace) && s.Namespace.Equals(namespc) && !s.Name.StartsWith("<"));
+            var routeConfigs = types.Where(s => !string.IsNullOrEmpty(s.Namespace) && s.Namespace.Equals(namespc) && !s.Name.StartsWith('<'));
             foreach (var routeConfig in routeConfigs)
             {
-                var cls = routeConfig.GetMethods().FirstOrDefault(s => s.Name.EndsWith("Routes"));
-                cls.Invoke(null, new object[] { app });
+                var cls = routeConfig.GetMethods().First(s => s.Name.EndsWith("Routes"));
+                cls?.Invoke(null, new object[] { app });
             }
             return app;
         }

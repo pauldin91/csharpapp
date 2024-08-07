@@ -8,12 +8,12 @@ namespace CSharpApp.Application.Services
 {
     public class PostService : IPostService
     {
-        private readonly IHttpClientWrapper<ToDoSettings> _clientWrapper;
+        private readonly IHttpClientWrapper _clientWrapper;
         private readonly ILogger<PostService> _logger;
         private readonly PostSettings _postSettings;
 
         public PostService(ILogger<PostService> logger, PostSettings postSettings,
-            IHttpClientWrapper<ToDoSettings> clientWrapper)
+            IHttpClientWrapper clientWrapper)
         {
             _logger = logger;
             _postSettings = postSettings;
@@ -22,24 +22,57 @@ namespace CSharpApp.Application.Services
 
         public async Task<PostRecord?> AddPost(PostRecord post)
         {
-            return await _clientWrapper.Post(_postSettings.ItemRootUrl, post);
+            try
+            {
+                return await _clientWrapper.Post(_postSettings.ItemRootUrl, post);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not create a new Post");
+            }
+            return new PostRecord(0, 0, "", "");
         }
 
         public async Task<PostRecord?> DeletePostById(int id)
         {
-            return await _clientWrapper.Delete<PostRecord>(_postSettings.ItemRootUrl, id);
+            try
+            {
+                var res = await _clientWrapper.Delete<PostRecord>(_postSettings.ItemRootUrl, id);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not delete Post with id {Id}",id);
+            }
+            return new PostRecord(0, 0, "", "");
         }
 
         public async Task<ReadOnlyCollection<PostRecord>> GetAllPosts()
         {
-            var response = await _clientWrapper.Get<List<PostRecord>>(_postSettings.ItemRootUrl);
+            try
+            {
+                var response = await _clientWrapper.Get<List<PostRecord>>(_postSettings.ItemRootUrl);
 
-            return response!.AsReadOnly();
+                return response!.AsReadOnly();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not get All Posts");
+            }
+            return new List<PostRecord>().AsReadOnly();
         }
 
         public async Task<PostRecord?> GetPostById(int id)
         {
-            return await _clientWrapper.Get<PostRecord>(_postSettings.ItemRootUrl, id);
+            try
+            {
+                return await _clientWrapper.Get<PostRecord>(_postSettings.ItemRootUrl, id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not get Post by id {Id}",id);
+            }
+            return new PostRecord(0, 0, "", "");
         }
     }
 }
