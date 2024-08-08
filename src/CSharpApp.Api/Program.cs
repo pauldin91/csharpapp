@@ -26,8 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler(exceptionHandlerApp
-    => exceptionHandlerApp.Run(async context
+    app.UseExceptionHandler(exceptionHandlerApp  
+        => exceptionHandlerApp.Run(async context
         => await Results.Problem()
                      .ExecuteAsync(context)));
 }

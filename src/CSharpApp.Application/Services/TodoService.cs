@@ -22,18 +22,9 @@ public class TodoService : ITodoService
 
     public async Task<ReadOnlyCollection<TodoRecord>> GetAllTodos()
     {
-        try
-        {
-            var response = await _clientWrapper.Get<List<TodoRecord>>(_toDoSettings.ItemRootUrl);
+        var response = await _clientWrapper.Get<List<TodoRecord>>(_toDoSettings.ItemRootUrl);
 
-            return response!.AsReadOnly();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex,"All ToDos could be fetched");
-
-        }
-        return new List<TodoRecord>().AsReadOnly();
+        return response!.AsReadOnly();
     }
 
     public async Task<TodoRecord?> GetTodoById(int id)
@@ -44,9 +35,8 @@ public class TodoService : ITodoService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "ToDo with {Id} could be fetched",id);
-
+            _logger.LogError(ex, "ToDo with {Id} could be fetched", id);
         }
-        return new TodoRecord(0,0,"",false);
+        return new TodoRecord(0, 0, "", false);
     }
 }
