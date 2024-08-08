@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSharpApp.Application\CSharpApp.Application.csproj" />
-    <ProjectReference Include="..\CSharpApp.Core\CSharpApp.Core.csproj" />
-    <ProjectReference Include="..\CSharpApp.Infrastructure\CSharpApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\CSharpApp.Application\CSharpApp.Application.csproj" />
+    <ProjectReference Include="..\..\src\CSharpApp.Core\CSharpApp.Core.csproj" />
+    <ProjectReference Include="..\..\src\CSharpApp.Infrastructure\CSharpApp.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
