@@ -26,4 +26,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore src/CSharpApp.Api/CSharpApp.Api.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      working-directory: src/
+      run: dotnet test --no-build --verbosity normal src/CSharpApp.Tests/CSharpApp.Tests.csproj
