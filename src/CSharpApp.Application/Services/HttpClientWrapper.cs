@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
-namespace CSharpApp.Core
+namespace CSharpApp.Application.Services
 {
     public class HttpClientWrapper : IHttpClientWrapper
     {

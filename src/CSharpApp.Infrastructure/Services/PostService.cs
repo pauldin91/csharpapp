@@ -4,7 +4,7 @@ using CSharpApp.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 
-namespace CSharpApp.Application.Services
+namespace CSharpApp.Infrastructure.Services
 {
     public class PostService : IPostService
     {

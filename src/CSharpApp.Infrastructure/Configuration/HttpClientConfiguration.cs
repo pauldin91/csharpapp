@@ -1,4 +1,4 @@
-﻿using CSharpApp.Core;
+﻿using CSharpApp.Application.Services;
 using CSharpApp.Core.Config;
 using CSharpApp.Core.Interfaces;
 using Microsoft.Extensions.Configuration;

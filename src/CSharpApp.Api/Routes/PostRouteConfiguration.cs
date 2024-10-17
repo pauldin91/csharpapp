@@ -3,7 +3,7 @@ using CSharpApp.Core.Dtos;
 using CSharpApp.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CSharpApp.Api.Configuration.Routes
+namespace CSharpApp.Api.Routes
 {
     public static class PostRouteConfiguration
     {

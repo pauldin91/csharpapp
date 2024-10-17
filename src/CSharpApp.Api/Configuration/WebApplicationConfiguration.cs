@@ -1,4 +1,4 @@
-﻿using CSharpApp.Api.Configuration.Routes;
+﻿using CSharpApp.Api.Routes;
 
 namespace CSharpApp.Api.Configuration
 {
