@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CSharpApp.Application\CSharpApp.Application.csproj" />
     <ProjectReference Include="..\..\src\CSharpApp.Core\CSharpApp.Core.csproj" />
     <ProjectReference Include="..\..\src\CSharpApp.Infrastructure\CSharpApp.Infrastructure.csproj" />
   </ItemGroup>

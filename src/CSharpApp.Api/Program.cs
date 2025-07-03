@@ -9,8 +9,7 @@ builder.Host.UseSerilog(new LoggerConfiguration().ReadFrom.Configuration(builder
 builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
-builder.Services.AddDefaultConfiguration();
-builder.Services.AddHttpClients(builder.Configuration);
+builder.Services.AddInfrastructureExensions(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

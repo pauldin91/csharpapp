@@ -1,10 +1,10 @@
-﻿using CSharpApp.Core.Config;
-using CSharpApp.Core.Interfaces;
+﻿using CSharpApp.Core.Interfaces;
+using CSharpApp.Core.Config;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
-namespace CSharpApp.Application.Services
+namespace CSharpApp.Infrastructure.Services
 {
     public class HttpClientWrapper : IHttpClientWrapper
     {

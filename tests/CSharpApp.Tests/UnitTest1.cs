@@ -1,4 +1,4 @@
-using CSharpApp.Application.Services;
+
 using CSharpApp.Core;
 using CSharpApp.Core.Config;
 using CSharpApp.Core.Dtos;
@@ -40,13 +40,12 @@ namespace CSharpApp.Tests
             _settings = ConfigurationBinder.Get<ClientSettings>(conf.GetRequiredSection(nameof(ClientSettings)))!;
 
             var svc = new ServiceCollection()
-                .AddDefaultConfiguration()
+                .AddInfrastructureExensions(conf)
                 .AddLogging(conf =>
             {
                 new LoggerConfiguration().MinimumLevel.Information().WriteTo.Console().CreateLogger();
             })
                 .AddSingleton<IConfiguration>(conf)
-                .AddHttpClients(conf)
                 .BuildServiceProvider();
             _wrapper = svc.GetRequiredService<IHttpClientWrapper>();
             var plogger = svc.GetRequiredService<ILogger<PostService>>();

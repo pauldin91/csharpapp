@@ -1,7 +1,8 @@
-﻿using CSharpApp.Core.Config;
+﻿using CSharpApp.Core.Interfaces;
+using CSharpApp.Core.Config;
 using CSharpApp.Core.Dtos;
-using CSharpApp.Core.Interfaces;
 using Microsoft.Extensions.Logging;
+
 using System.Collections.ObjectModel;
 
 namespace CSharpApp.Infrastructure.Services
