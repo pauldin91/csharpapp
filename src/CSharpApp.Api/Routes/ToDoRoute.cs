@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpApp.Api.Routes
 {
-    public static class ToDoRouteConfiguration
+    public static class ToDoRoute
     {
         public static WebApplication AddToDoItemRoutes(this WebApplication app)
         {

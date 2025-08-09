@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpApp.Api.Routes
 {
-    public static class PostRouteConfiguration
+    public static class PostRoute
     {
         public static WebApplication AddPostItemRoutes(this WebApplication app)
         {
